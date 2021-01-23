@@ -11,7 +11,14 @@ class TweetsController < ApplicationController
   end
 
   def create
-    Tweet.create(tweet_params)
+    @tweet = Tweet.new(tweet_params)
+    if @tweet.valid?
+      @tweet.save
+      edirect_to root_path
+    else
+      render 'new'
+    end
+    # Tweet.create(tweet_params)
   end
 
   def destroy
@@ -33,7 +40,8 @@ class TweetsController < ApplicationController
   end
 
   def search
-    @tweets = Tweet.search(params[:keyword])
+    @tweets = SearchTweetsService.search(params[:keyword])
+    # @tweets = Tweet.search(params[:keyword])
   end
 
   private
