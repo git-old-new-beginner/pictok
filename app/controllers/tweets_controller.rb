@@ -14,7 +14,7 @@ class TweetsController < ApplicationController
     @tweet = Tweet.new(tweet_params)
     if @tweet.valid?
       @tweet.save
-      edirect_to root_path
+      redirect_to root_path
     else
       render 'new'
     end
